@@ -22,7 +22,7 @@ def chatstream():
             global history
             add_history(msg)
             for user in list(users):
-                if users[user] and not users[user].closed:
+                if user and users[user] and not users[user].closed:
                     users[user].local(msg)
 
         except Exception as e:

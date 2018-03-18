@@ -3,9 +3,9 @@ __version__ = '1.0.1'
 import logging
 logging.basicConfig(level=logging.WARN)
 
-
 from pysshchat.chats.globals import loadcommands, loadfile
 from pysshchat.chats.globals import texts, config
+
 
 def init():
     loadfile()

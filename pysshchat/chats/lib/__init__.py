@@ -1,4 +1,4 @@
-import _thread as thread
+import threading
 from functools import reduce
 import logging
 logging = logging.getLogger('lib')
@@ -6,7 +6,9 @@ logging = logging.getLogger('lib')
 
 def run_thread(func):
     def f(*args):
-        return thread.start_new_thread(func, args)
+        thread = threading.Thread(target=func, args=args)
+        thread.daemon = True
+        thread.start()
     return f
 
 
