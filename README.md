@@ -1,5 +1,5 @@
 # pySSHChat
-Replace [jsSSHChat](https://github.com/LexSerest/pySSHChat) on Python3 (while without ncurses)
+Replace [jsSSHChat](https://github.com/LexSerest/jsSSHChat) on Python3 (while without ncurses)
 
 ## TODO
 - use ncurses
