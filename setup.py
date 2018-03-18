@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages 
+from setuptools import setup, find_packages
 
 setup(
     name='pySSHChat',
@@ -6,7 +6,7 @@ setup(
     version='1.0.0',
     description='SSH chat server written on Python3',
     author='LexSerest',
-    author_email='LexSerest',
+    author_email='lexserest@gmail.com',
     url='https://github.com/LexSerest/pySSHChat/',
     keywords=['ssh', 'chat', 'sshchat'],
     install_requires=[
