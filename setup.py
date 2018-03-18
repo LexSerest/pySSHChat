@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name='pySSHChat',
     packages=find_packages(),
-    version='1.0.0',
+    version='1.0.1',
     description='SSH chat server written on Python3',
     author='LexSerest',
     author_email='lexserest@gmail.com',
@@ -14,6 +14,7 @@ setup(
         'sty',
         'pyyaml'
     ],
+    include_package_data=True,
     license='MIT',
     entry_points={
         'console_scripts':
