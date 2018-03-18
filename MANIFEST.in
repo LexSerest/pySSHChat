@@ -1,0 +1,3 @@
+include runner README.md
+recursive-include pysshchat/key *
+recursive-include pysshchat/yaml *.yaml

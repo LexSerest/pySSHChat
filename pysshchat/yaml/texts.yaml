@@ -1,0 +1,29 @@
+text:
+  MOTD: |
+    {bg.blue}{fg.white}{ef.bold}Welcome in the pySSHChat{rs.all}
+    Use /help or F1 for info on commands
+
+  help: |
+    {bg.blue}{fg.white}{ef.bold}Help{rs.all}
+    /help or F1 - this help
+    /color or F2 - change you color
+    /list or F3 - users online
+    /me <you message> - write in the third person
+    /quit - exit
+
+plugins:
+  userlist: "Users online - {list}"
+  me: "{rs.all}{fg.yellow}* {ef.b}{user.nick}{rs.b} {msg}{rs.all}"
+
+format:
+  msg: "[{time}] [{ef.bold}{user.color}{user.nick}{rs.all}]: {msg}"
+  prompt: "[{ef.bold}{user.color}{user.nick}{rs.all}]: "
+
+messages:
+  disconnect: "{fg.red}* {user.nick} left{rs.all}"
+  connect: "{fg.green}* {user.nick} connected{rs.all}"
+
+error:
+  nick_used: "You nick is used."
+  nick_long: "You nick is long. Max 10 chars."
+

@@ -1,0 +1,6 @@
+KEY_ENTER = [b'\r']
+KEY_CTRL_D = [b'\x04']
+KEY_BACKSPACE = [b'\x7f', b'\x08']
+KEY_F1 = [b'\x1bOP']
+KEY_F2 = [b'\x1bOQ']
+KEY_F3 = [b'\x1bOR']

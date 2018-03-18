@@ -1,0 +1,2 @@
+host_key: "{path}/../key/id_rsa"
+port: 2200
