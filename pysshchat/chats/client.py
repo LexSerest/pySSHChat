@@ -2,6 +2,7 @@ import logging
 import time
 import sty
 from random import randint
+
 import pysshchat.variables as variables
 from .events import keypress, left_user, new_user
 from pysshchat.lib import dotget

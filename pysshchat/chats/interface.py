@@ -1,5 +1,6 @@
 import paramiko
 import threading
+
 import pysshchat.variables as variables
 
 config = variables.config
