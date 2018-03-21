@@ -1,14 +1,12 @@
 import logging
 import time
 import sty
-from sty import fg
 from random import randint
-from .globals import queue, texts, users
+import pysshchat.variables as variables
 from .events import keypress, left_user, new_user
-from .lib import dotget
-from .lib import run_thread
-from .lib import keycode
-
+from pysshchat.lib import dotget
+from pysshchat.lib import run_thread
+from pysshchat.lib import keycode
 
 logging = logging.getLogger('client')
 
@@ -31,7 +29,7 @@ class Client:
     def connect(self):
         self._send('', 'messages.connect')
         time.sleep(0.1)
-        users[self.nick] = self
+        variables.users[self.nick] = self
         new_user(self)
 
     @run_thread
@@ -50,7 +48,7 @@ class Client:
 
     def set_color(self, color=None):
         if not color:
-            color = fg(randint(0, 255), randint(0, 255), randint(0, 255))
+            color = sty.fg(randint(0, 255), randint(0, 255), randint(0, 255))
         self.color = color
         self.prompt = self.parse('format.prompt', nick=self.nick)
 
@@ -90,10 +88,10 @@ class Client:
 
     def _send(self, msg, format=None, **kwargs):
         if not format:
-            queue.put(msg)
+            variables.queue.put(msg)
         else:
             f = self.parse(format, msg=msg, **kwargs)
-            queue.put(f)
+            variables.queue.put(f)
 
     def send(self):
         self._send(self.text, 'format.msg')
@@ -109,7 +107,7 @@ class Client:
         self._send('', 'messages.disconnect')
         self.closed = True
         self.channel.close()
-        users.pop(self.nick, None)
+        variables.users.pop(self.nick, None)
         left_user(self)
 
     def parse(self, format, **kwargs):
@@ -121,7 +119,7 @@ class Client:
         d['user'] = self
         d['time'] = time.strftime("%H:%M")
 
-        f = dotget(format, texts)
+        f = dotget(format, variables.texts)
 
         if f:
             try:

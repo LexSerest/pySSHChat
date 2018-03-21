@@ -3,12 +3,14 @@ import socket
 import sys
 import paramiko
 import os
+import pysshchat.variables as variables
 
-from .globals import config, users, queue, texts, add_history
 from .interface import Server
 from .client import Client
-from .lib import run_thread
+from pysshchat.lib import run_thread
+from pysshchat.lib.host_key import genkey
 
+host_key = variables.config.get('host_key', None)
 path = os.path.dirname(__file__)
 logging = logging.getLogger('server')
 
@@ -16,30 +18,37 @@ logging = logging.getLogger('server')
 def chatstream():
     while True:
         try:
-            msg = queue.get()
+            msg = variables.queue.get()
             if msg is None:
                 continue
-            global history
-            add_history(msg)
-            for user in list(users):
-                if user and users[user] and not users[user].closed:
-                    users[user].local(msg)
+            variables.add_history(msg)
+            for user in list(variables.users):
+                if user and variables.users[user] and not variables.users[user].closed:
+                    variables.users[user].local(msg)
 
         except Exception as e:
             logging.exception(e)
 
 
 def start():
+    global host_key
+
+    if not host_key:
+        host_key = genkey()
+
+    print('Host key file - %s' % host_key)
+
     try:
         global sock
-        port = config.get('port', 2200)
+        port = variables.config.get('port', 2200)
+        host = variables.config.get('host', '127.0.0.1')
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        sock.bind(('', port))
-        print('Listen %s port' % port)
+        sock.bind((host, port))
+        print('Listen %s:%s' % (host, port))
 
     except:
-        logging.warning('*** Bind %s port failed ' % (config['port']))
+        print('*** Bind %s port failed ' % (variables.config['port']))
         sys.exit(1)
 
     while sock is not None:
@@ -47,35 +56,34 @@ def start():
             sock.listen(1000)
             client, addr = sock.accept()
         except Exception as e:
-            print('*** Listen/accept failed: ' + str(e))
             continue
 
         t = paramiko.Transport(client)
         try:
             t.load_server_moduli()
         except:
-            print('(Failed to load moduli -- gex will be unsupported.)')
             continue
-        t.add_server_key(paramiko.RSAKey(filename=config['host_key'].format(path=path)))
+
+        t.add_server_key(paramiko.RSAKey(filename=host_key))
         server = Server()
         try:
             t.start_server(server=server)
         except paramiko.SSHException as e:
             t.close()
             continue
-        except:
+        except Exception as e:
             t.close()
             continue
 
         chan = t.accept(20)
         nick = t.get_username()
-        if nick in users:
-            chan.send(texts['error'].get('nick_used', 'You nick is used') + '\r\n')
+        if nick in variables.users:
+            chan.send(variables.texts['error'].get('nick_used', 'You nick is used') + '\r\n')
             chan.close()
             continue
 
         if len(nick) == 0 or len(nick) > 10:
-            chan.send(texts['error'].get('nick_long', 'You nick is long') + '\r\n')
+            chan.send(variables.texts['error'].get('nick_long', 'You nick is long') + '\r\n')
             chan.close()
             continue
 

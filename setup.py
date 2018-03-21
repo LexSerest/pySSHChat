@@ -1,9 +1,11 @@
 from setuptools import setup, find_packages
+from pysshchat.version import get_version
+
 
 setup(
     name='pySSHChat',
     packages=find_packages(),
-    version='1.0.1',
+    version=get_version(),
     description='SSH chat server written on Python3',
     author='LexSerest',
     author_email='lexserest@gmail.com',

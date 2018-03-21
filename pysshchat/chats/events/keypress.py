@@ -1,4 +1,4 @@
-from ..lib import keycode as keys
+from pysshchat.lib import keycode as keys
 from ..commands import handler, keypress_handler
 import logging
 logging = logging.getLogger('keypress')

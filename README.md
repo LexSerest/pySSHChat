@@ -15,14 +15,14 @@ pip3 install pysshchat
 
 ## Run
 ```bash
- # Listen default 2200 port
+# Listen default 2200 port and auto generated host key
 python3 -m pysshchat
 
 # Set listen 2222 port and set path server key
 python3 -m pysshchat -p 2222 -k ~/.ssh/id_rsa
 
-# Set path server key
-python3 -m pysshchat -k ~/.ssh/id_rsa
+# Set password for connect to chat
+python3 -m pysshchat --password YouPassword
 
 # Load config file (see yaml/config.yaml)
 python3 -m pysshchat --config <path>

@@ -1,7 +1,7 @@
-from ..globals import queue
+import pysshchat.variables as variables
 import time
 
 
 def server_down():
-    queue.put('Server is down')
+    variables.queue.put('Server is down')
     time.sleep(1)

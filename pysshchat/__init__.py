@@ -1,22 +1,25 @@
 __version__ = '1.0.1'
 
-import logging
-logging.basicConfig(level=logging.WARN)
+import pysshchat.variables as variables
+from pysshchat.lib.host_key import genkey
+from pysshchat.chats import start as server_start, chatstream
+from pysshchat.variables.loads import commands, config, keys, text
 
-from pysshchat.chats.globals import loadcommands, loadfile
-from pysshchat.chats.globals import texts, config
+import logging
+logging.basicConfig(level=logging.CRITICAL)
 
 
 def init():
-    loadfile()
-    loadcommands()
+    config()
+    keys()
+    text()
+    commands()
 
 
 def run():
-    from pysshchat.chats.server import start, chatstream
     try:
         chatstream()
-        start()
+        server_start()
     except KeyboardInterrupt as e:
         from pysshchat.chats.events import server_down
         server_down()

@@ -1,5 +1,8 @@
 import paramiko
 import threading
+import pysshchat.variables as variables
+
+config = variables.config
 
 
 class Server (paramiko.ServerInterface):
@@ -11,11 +14,18 @@ class Server (paramiko.ServerInterface):
             return paramiko.OPEN_SUCCEEDED
         return paramiko.OPEN_FAILED_ADMINISTRATIVELY_PROHIBITED
 
+    def check_auth_password(self, username, password):
+        if password == config.get('password'):
+            return paramiko.AUTH_SUCCESSFUL
+        return paramiko.AUTH_FAILED
+
     def check_auth_none(self, username):
+        if config.get('password', None):
+            return paramiko.AUTH_FAILED
         return paramiko.AUTH_SUCCESSFUL
 
     def get_allowed_auths(self, username):
-        return 'none'
+        return 'none,password'
 
     def check_channel_shell_request(self, channel):
         self.event.set()
