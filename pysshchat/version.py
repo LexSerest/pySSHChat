@@ -1,6 +1,6 @@
 import subprocess
 
-ver = subprocess.check_output(['git', 'rev-list', '--all', '--count'])
+ver = int(subprocess.check_output(['git', 'rev-list', '--all', '--count']))
 
 
 def get_version():
