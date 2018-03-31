@@ -1,12 +1,7 @@
 import subprocess
-import re
-import os
 from os.path import isdir, join, dirname
 
 PREFIX = '1.0.%s'
-
-
-version_re = re.compile('^Version: (.+)$', re.M)
 
 
 def get_version():
