@@ -1,4 +1,4 @@
 paramiko
 sty
 pyyaml
-cryptography
+pycrypto

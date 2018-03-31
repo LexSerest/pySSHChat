@@ -14,6 +14,7 @@ setup(
     install_requires=[
         'paramiko',
         'sty',
+        'pycrypto',
         'pyyaml'
     ],
     include_package_data=True,
