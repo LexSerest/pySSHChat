@@ -1,10 +1,10 @@
 # pySSHChat
-Replace [jsSSHChat](https://github.com/LexSerest/jsSSHChat) on Python3 (while without ncurses)
+Replace [jsSSHChat](https://github.com/LexSerest/jsSSHChat) on Python3
 
 ![pySSHChat](https://github.com/LexSerest/pySSHChat/blob/master/img/record.gif?raw=true)
 
 ## TODO
-- use ncurses
+- Switch line/ui mode
 - Add info for create custom commands
 - etc.
 
