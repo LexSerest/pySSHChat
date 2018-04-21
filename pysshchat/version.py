@@ -1,7 +1,7 @@
 import subprocess
 from os.path import isdir, join, dirname
 
-PREFIX = '1.0.%s'
+PREFIX = '2.0.%s'
 
 
 def get_version():

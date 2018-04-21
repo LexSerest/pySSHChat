@@ -1,27 +1,24 @@
 text:
-  MOTD: |
-    {bg.blue}{fg.white}{ef.bold}Welcome in the pySSHChat{rs.all}
-    Use /help or F1 for info on commands
+  title: "Welcome ssh chat! Use F1 or /help for help"
 
   help: |
-    {bg.blue}{fg.white}{ef.bold}Help{rs.all}
+    (#title#Help#)
     /help or F1 - this help
     /color or F2 - change you color
-    /list or F3 - users online
     /me <you message> - write in the third person
     /quit - exit
 
+
 plugins:
-  userlist: "Users online - {list}"
-  me: "{rs.all}{fg.yellow}* {ef.b}{user.nick}{rs.b} {msg}{rs.all}"
+  me: "(#text#* {u.username} {text}#)"
 
 format:
-  msg: "[{time}] [{ef.bold}{user.color}{user.nick}{rs.all}]: {msg}"
-  prompt: "[{ef.bold}{user.color}{user.nick}{rs.all}]: "
+  msg: "[{time}] [(#{u.color}#{u.username}#)]: {text}"
+  prompt: "[(#{u.color}#{u.username}#)]: "
 
 messages:
-  disconnect: "{fg.red}* {user.nick} left{rs.all}"
-  connect: "{fg.green}* {user.nick} connected{rs.all}"
+  disconnect: "* {u.username} left"
+  connect: "* {u.username} connected"
 
 error:
   nick_used: "You nick is used."

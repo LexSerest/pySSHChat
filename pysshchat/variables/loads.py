@@ -28,15 +28,6 @@ def text(path=path_yaml, file="texts.yaml"):
         sys.exit()
 
 
-def keys(path=path_yaml, file="keys.yaml"):
-    try:
-        with open(os.path.join(path, file), 'r') as stream:
-            variables.keysDict.update(yaml.load(stream))
-    except Exception as exc:
-        logging.critical('Error load keys file %s' % path)
-        sys.exit()
-
-
 def commands(path=path_commands):
     loads = []
     for command in os.listdir(path):

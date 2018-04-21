@@ -1,20 +1,11 @@
 import pysshchat.variables as variables
-from pysshchat.lib import keycode
-
-keycode = keycode.__dict__
 
 
-def register(name, isKeys=False):
+def register(name, key=None):
     def wrap(f):
         variables.command_list[name] = f
-        if isKeys:
-            if name in variables.keysDict:
-                if variables.keysDict[name] in keycode:
-                    variables.command_keys.append((keycode[variables.keysDict[name]], f))
-                else:
-                    print("%s key not found in KeyCode in keycode.py" % variables.keysDict[name])
-            else:
-                print('"%s" not found register key in keys.yaml' % name)
+        if key:
+            variables.command_keys.append((key, f))
     return wrap
 
 

@@ -2,29 +2,21 @@ import pysshchat.variables as variables
 from pysshchat.chats.commands import register
 
 
-@register('color', True)
-def do_color(user, args):
-    user.set_color()
-    user.reset_input()
-
-
-@register('help', True)
+@register('help', 'f1')
 def do_help(user, args):
-    user.local('', 'text.help')
-    user.reset_input()
+    user.local('text.help')
 
 
-@register('list', True)
-def do_list(user, args):
-    user.local('', 'plugins.userlist', list=', '.join(list(variables.users)))
-    user.reset_input()
+@register('color', 'f2')
+def do_color(user, args):
+    user.change_color()
 
 
 @register('me')
 def do_me(user, args):
-    user._send(' '.join(args), 'plugins.me')
+    user.send(' '.join(args), 'plugins.me')
 
 
 @register('quit')
 def do_close(user, args):
-    user.close()
+    user.quit()

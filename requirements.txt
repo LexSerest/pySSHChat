@@ -2,3 +2,5 @@ paramiko
 sty
 pyyaml
 pycrypto
+asyncssh
+urwid
