@@ -38,5 +38,4 @@ def commands(path=path_commands):
                 loads.append(name)
             except Exception as error:
                 logging.exception("Unable to load %s.%s" % (path, command), error)
-    print('Loads commands "%s"' % ', '.join(loads))
 

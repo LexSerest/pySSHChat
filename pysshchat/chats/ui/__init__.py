@@ -14,8 +14,18 @@ class UI(object):
     def __init__(self, username):
         self.title = text_format('text.title', u=self)
         self.username = username
+
+        self.message = None
+        self.output = None
+        self.body = None
+        self.list = None
+        self.header = None
+        self.input = None
+        self.context = None
+
         self.color = None
         self.screen = None
+        self.main_loop = None
         self.rnd_color()
 
     def rnd_color(self):
@@ -23,8 +33,7 @@ class UI(object):
 
     def change_color(self):
         self.rnd_color()
-        self.footer.set_caption(text_format('format.prompt', u=self))
-
+        self.input.set_caption(text_format('format.prompt', u=self))
 
     def run(self, screen, loop):
         self.screen = screen
@@ -52,7 +61,8 @@ class UI(object):
     def quit(self, event=True):
         try:
             urwid.emit_signal(self, "quit")
-            self.main_loop.stop()
+            if hasattr(self.main_loop, 'idle_handle'):
+                self.main_loop.stop()
             if event:
                 self.event_quit()
         except Exception as e:
@@ -60,9 +70,9 @@ class UI(object):
 
     def build_interface(self):
         self.header = urwid.Text(self.title)
-        self.footer = urwid.Edit(text_format('format.prompt', u=self))
+        self.input = urwid.Edit(text_format('format.prompt', u=self))
 
-        self.divider = Alert()
+        self.message = Alert()
 
         self.output = urwid.SimpleListWalker([])
         self.body = Chat(self.output)
@@ -71,11 +81,11 @@ class UI(object):
 
         w = urwid.Columns([self.body, (12, urwid.AttrWrap(self.list, "list"))], 1)
         self.header = urwid.AttrWrap(self.header, "divider")
-        self.footer = urwid.AttrWrap(self.footer, "footer")
+        self.input = urwid.AttrWrap(self.input, "footer")
         w = urwid.AttrWrap(w, "body")
-        self.footer.set_wrap_mode("space")
-        main_frame = urwid.Frame(w, header=self.header, footer=self.divider)
-        self.context = urwid.Frame(main_frame, footer=self.footer)
+        self.input.set_wrap_mode("space")
+        main_frame = urwid.Frame(w, header=self.header, footer=self.message)
+        self.context = urwid.Frame(main_frame, footer=self.input)
         self.context.set_focus("footer")
 
     def get_user_list(self):
@@ -102,8 +112,8 @@ class UI(object):
         elif key in ("ctrl d", 'ctrl c'):
             self.quit()
 
-        elif key in ("tab"):
-            self.event_key_tab(self.footer.get_edit_text())
+        elif key == "tab":
+            self.event_key_tab(self.input.get_edit_text())
 
         elif key == "enter":
             self.key_enter()
@@ -125,7 +135,6 @@ class UI(object):
         self.body.scroll_to_bottom()
         return text
 
-
     def print_text(self, text):
         walker = self.output
         if not isinstance(text, urwid.Text):
@@ -137,16 +146,16 @@ class UI(object):
         return datetime.datetime.now().strftime('%H:%M')
 
     def key_enter(self):
-        text = self.footer.get_edit_text()
+        text = self.input.get_edit_text()
 
-        self.footer.set_edit_text(" " * len(text))
-        self.footer.set_edit_text("")
+        self.input.set_edit_text(" " * len(text))
+        self.input.set_edit_text("")
 
         if text.strip():
             self.event_key_enter(text)
 
     def alert(self, type, text, delay=3):
-        self.divider.set_temp(type, text, delay)
+        self.message.set_temp(type, text, delay)
 
     def event_key_enter(self, text):
         pass

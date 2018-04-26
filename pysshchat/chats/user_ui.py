@@ -1,5 +1,6 @@
 import urwid
 import logging
+import asyncio
 
 import pysshchat.variables as variables
 from pysshchat.chats.ui import UI
@@ -29,7 +30,6 @@ class UserUI(UI):
                 continue
             user.print_message(type, text=text, u=self)
 
-
     def local(self, type, **kwargs):
         self.print_message(type, **kwargs)
 
@@ -40,7 +40,6 @@ class UserUI(UI):
             await self.process.wait_closed()
         except Exception as e:
             print(e)
-            pass
 
     async def wait_close(self):
         await self.process.wait_closed()
@@ -52,7 +51,6 @@ class UserUI(UI):
         self.send('', 'messages.connect')
         variables.users[self.username] = self
 
-
         # update user list
         for user in variables.users.values():
             user.set_user_list(variables.users.keys())
@@ -63,8 +61,7 @@ class UserUI(UI):
 
     def event_quit(self):
         variables.users.pop(self.username)
-        self.process.close()
-        #self.loop.run_until_complete(self.wait_close)
+        asyncio.ensure_future(self.exit())
 
         self.send('', 'messages.disconnect', False)
 

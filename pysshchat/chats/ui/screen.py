@@ -11,7 +11,7 @@ class AsyncScreen(Screen):
 
         Screen.__init__(self)
     _pending_task = None
-
+    _is_run = False
 
     def get_cols_rows(self):
         width, height, pixwidth, pixheight = self.transport.get_terminal_size()
@@ -44,14 +44,17 @@ class AsyncScreen(Screen):
                 except:
                     return
 
-            self._pending_task = asyncio.ensure_future(
-                self.reader.read(1024), loop=event_loop._loop)
-            self._pending_task.add_done_callback(pump_reader)
+            if self._is_run:
+                self._pending_task = asyncio.ensure_future(
+                    self.reader.read(1024), loop=event_loop._loop)
+                self._pending_task.add_done_callback(pump_reader)
 
+        self._is_run = True
         pump_reader()
 
 
     def unhook_event_loop(self, event_loop):
+        self._is_run = False
         if self._pending_task:
             self._pending_task.cancel()
             del self._pending_task

@@ -1,6 +1,6 @@
 _palette = [
     ('divider', 'black', 'dark cyan', 'standout'),
-    ('text', 'light gray', 'default'),
+    ('text', 'yellow', 'default'),
     ('bold_text', 'light gray', 'default', 'bold'),
     ("body", "text"),
     ("footer", "text"),

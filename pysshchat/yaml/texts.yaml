@@ -10,15 +10,15 @@ text:
 
 
 plugins:
-  me: "(#text#* {u.username} {text}#)"
+  me: "(#text#[{time}] * {u.username} {text}#)"
 
 format:
   msg: "[{time}] [(#{u.color}#{u.username}#)]: {text}"
   prompt: "[(#{u.color}#{u.username}#)]: "
 
 messages:
-  disconnect: "* {u.username} left"
-  connect: "* {u.username} connected"
+  disconnect: "[{time}] * {u.username} left"
+  connect: "[{time}] * {u.username} connected"
 
 error:
   nick_used: "You nick is used."

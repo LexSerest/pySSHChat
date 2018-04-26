@@ -1,11 +1,11 @@
 # pySSHChat
-Replace [jsSSHChat](https://github.com/LexSerest/jsSSHChat) on Python3
+SSH chat server written on Python3
 
 ![pySSHChat](https://github.com/LexSerest/pySSHChat/blob/master/img/record.gif?raw=true)
 
 ## TODO
 - Switch line/ui mode
-- Add info for create custom commands
+- Add commands for admin
 - etc.
 
 ## Install
@@ -18,6 +18,12 @@ pip3 install pysshchat
 # Listen default 2200 port and auto generated host key
 python3 -m pysshchat
 
+# Starting in daemon mode
+python3 -m pysshchat --daemon
+
+# Stopping for daemon mode
+python3 -m pysshchat --stop
+
 # Set listen 2222 port and set path server key
 python3 -m pysshchat -p 2222 -k ~/.ssh/id_rsa
 
@@ -27,9 +33,8 @@ python3 -m pysshchat --password YouPassword
 # Load config file (see yaml/config.yaml)
 python3 -m pysshchat --config <path>
 
-# Set message welcome
-python3 -m pysshchat --set-motd "You text"
-python3 -m pysshchat --set-motd-file <path>
+# Set title
+python3 -m pysshchat --set-title "You text"
 
 # Set help text
 python3 -m pysshchat --set-help "You text"

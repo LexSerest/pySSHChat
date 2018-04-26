@@ -8,14 +8,6 @@ import logging
 logging = logging.getLogger('lib')
 
 
-def run_thread(func):
-    def f(*args):
-        thread = threading.Thread(target=func, args=args)
-        thread.daemon = True
-        thread.start()
-    return f
-
-
 def genkey(path):
 
     if not path:

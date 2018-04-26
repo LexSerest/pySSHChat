@@ -26,3 +26,9 @@ class Alert(urwid.AttrWrap):
         self.text.set_text(text)
         self.set_attr("msg_" + type)
         self.default(delay)
+
+    def alert_info(self, text, delay=3):
+        self.set_temp("info", text, delay)
+
+    def alert_danger(self, text, delay=3):
+        self.set_temp("danger", text, delay)
