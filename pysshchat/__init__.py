@@ -1,4 +1,5 @@
 import logging
+from pysshchat.chats.server import run as run_server
 
 logging.basicConfig(level=logging.WARN)
 
@@ -12,10 +13,9 @@ def init():
 
 
 def run():
-    from pysshchat.chats.server import run
     try:
-        run()
-    except KeyboardInterrupt as e:
+        run_server()
+    except KeyboardInterrupt:
         pass
     except Exception as e:
         logging.exception(e)

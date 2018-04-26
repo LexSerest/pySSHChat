@@ -7,7 +7,7 @@ from pysshchat.chats.ui import UI
 from pysshchat.chats.ui.screen import AsyncScreen
 from .commands import handler, keypress_handler
 
-logging = logging.getLogger('user_ui')
+logging = logging.getLogger("user_ui")
 
 
 class UserUI(UI):
@@ -23,7 +23,7 @@ class UserUI(UI):
         self.run(screen, loop)
         self.event_join()
 
-    def send(self, text, type='format.msg', me=True):
+    def send(self, text, type="format.msg", me=True):
         variables.add_history(self.message_format(type, text=text))
         for username, user in variables.users.items():
             if not me and user == self:
@@ -48,7 +48,7 @@ class UserUI(UI):
         keypress_handler(self, key)
 
     def event_join(self):
-        self.send('', 'messages.connect')
+        self.send("", "messages.connect")
         variables.users[self.username] = self
 
         # update user list
@@ -63,15 +63,15 @@ class UserUI(UI):
         variables.users.pop(self.username)
         asyncio.ensure_future(self.exit())
 
-        self.send('', 'messages.disconnect', False)
+        self.send("", "messages.disconnect", False)
 
         for user in variables.users.values():
             user.set_user_list(variables.users.keys())
 
     def event_key_enter(self, text):
         try:
-            if text[0] == '/':
-                cmd = text[1:].split(' ')
+            if text[0] == "/":
+                cmd = text[1:].split(" ")
                 handler(self, cmd[0], cmd[1:])
             else:
                 self.send(text)

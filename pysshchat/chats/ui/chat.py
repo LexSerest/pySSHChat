@@ -15,9 +15,9 @@ class Chat(urwid.ListBox):
             self.set_focus(len(self.body) - 1)
 
     def scroll(self, type):
-        if type == 'down':
+        if type == "down":
             self.focus_next()
-        if type == 'up':
+        if type == "up":
             self.focus_previous()
 
     def focus_next(self):

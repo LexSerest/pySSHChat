@@ -29,14 +29,14 @@ class AsyncScreen(Screen):
                 # First call, do nothing
                 pass
             elif fut.cancelled():
-                # This is in response to an earlier .read() call, so don't
+                # This is in response to an earlier .read() call, so don"t
                 # schedule another one!
                 return
             elif fut.exception():
-                callback(['window resize'], [])
+                callback(["window resize"], [])
             else:
                 try:
-                    co = bytearray(fut.result(), 'utf-8')
+                    co = bytearray(fut.result(), "utf-8")
                     self.parse_input(event_loop, callback, co)
 
                 except urwid.ExitMainLoop:

@@ -12,32 +12,32 @@ loop = asyncio.get_event_loop()
 
 
 def error(process, text):
-    process.stdout.write(text + '\n')
+    process.stdout.write(text + "\n")
     process.close()
 
 
 async def handle_client(process):
     try:
-        username = process.channel.get_extra_info('username')
-        username = re.sub("[^\w]", '', username)
+        username = process.channel.get_extra_info("username")
+        username = re.sub("[^\w]", "", username)
 
         if not len(username):
-            return error(process, 'Empty username.')
+            return error(process, "Empty username.")
 
         if len(username) > 10:
-            return error(process, 'Max username len 10 chars.')
+            return error(process, "Max username len 10 chars.")
 
         if username in variables.users:
-            return error(process, 'This username is used.')
+            return error(process, "This username is used.")
 
-        password = variables.config.get('password')
+        password = variables.config.get("password")
         if password:
             process.channel.set_echo(False)
-            process.stdout.write('Password: ')
+            process.stdout.write("Password: ")
             try:
                 line = await process.stdin.readline()
-                if line.rstrip('\n') != password:
-                    return error(process, 'Incorrect password')
+                if line.rstrip("\n") != password:
+                    return error(process, "Incorrect password")
             except:
                 process.close()
 
@@ -53,11 +53,11 @@ class MyServer(asyncssh.SSHServer):
 
 
 async def start_server():
-    host = variables.config.get('host', '127.0.0.1')
-    port = variables.config.get('port', 2200)
-    key = genkey(variables.config.get('host_key', ''))
-    print('Use host key - %s' % key)
-    print('Listing %s:%s' % (host, port))
+    host = variables.config.get("host", "127.0.0.1")
+    port = variables.config.get("port", 2200)
+    key = genkey(variables.config.get("host_key", ""))
+    print("Use host key - %s" % key)
+    print("Listing %s:%s" % (host, port))
 
     await asyncssh.create_server(MyServer, host, port,
                                  server_host_keys=[key],
@@ -68,7 +68,7 @@ def run():
     try:
         loop.run_until_complete(start_server())
     except (OSError, asyncssh.Error) as exc:
-        sys.exit('Error starting server: ' + str(exc))
+        sys.exit("Error starting server: " + str(exc))
 
     try:
         loop.run_forever()

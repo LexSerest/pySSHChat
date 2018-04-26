@@ -7,12 +7,12 @@ from .chat import Chat
 from .palette import palette
 from .format import text_format
 
-logging = logging.getLogger('ui')
+logging = logging.getLogger("ui")
 
 
 class UI(object):
     def __init__(self, username):
-        self.title = text_format('text.title', u=self)
+        self.title = text_format("text.title", u=self)
         self.username = username
 
         self.message = None
@@ -29,11 +29,11 @@ class UI(object):
         self.rnd_color()
 
     def rnd_color(self):
-        self.color = 'h' + str(random.randint(1, 254))
+        self.color = "h" + str(random.randint(1, 254))
 
     def change_color(self):
         self.rnd_color()
-        self.input.set_caption(text_format('format.prompt', u=self))
+        self.input.set_caption(text_format("format.prompt", u=self))
 
     def run(self, screen, loop):
         self.screen = screen
@@ -61,7 +61,7 @@ class UI(object):
     def quit(self, event=True):
         try:
             urwid.emit_signal(self, "quit")
-            if hasattr(self.main_loop, 'idle_handle'):
+            if hasattr(self.main_loop, "idle_handle"):
                 self.main_loop.stop()
             if event:
                 self.event_quit()
@@ -70,7 +70,7 @@ class UI(object):
 
     def build_interface(self):
         self.header = urwid.Text(self.title)
-        self.input = urwid.Edit(text_format('format.prompt', u=self))
+        self.input = urwid.Edit(text_format("format.prompt", u=self))
 
         self.message = Alert()
 
@@ -109,7 +109,7 @@ class UI(object):
         elif key in ("down", "up"):
             self.body.scroll(key)
 
-        elif key in ("ctrl d", 'ctrl c'):
+        elif key in ("ctrl d", "ctrl c"):
             self.quit()
 
         elif key == "tab":
@@ -123,9 +123,9 @@ class UI(object):
             self.context.keypress(size, key)
 
     def message_format(self, type, **kwargs):
-        kwargs['time'] = self.get_time()
-        if not kwargs.get('u', None):
-            kwargs['u'] = self
+        kwargs["time"] = self.get_time()
+        if not kwargs.get("u", None):
+            kwargs["u"] = self
         return text_format(type, **kwargs)
 
     def print_message(self, type, **kwargs):
@@ -143,7 +143,7 @@ class UI(object):
         self.body.scroll_to_bottom()
 
     def get_time(self):
-        return datetime.datetime.now().strftime('%H:%M')
+        return datetime.datetime.now().strftime("%H:%M")
 
     def key_enter(self):
         text = self.input.get_edit_text()
@@ -167,7 +167,7 @@ class UI(object):
         pass
 
     def event_key_tab(self, text):
-        # self.divider.set_temp('danger', str(self.ui.get_cols_rows()))
+        # self.divider.set_temp("danger", str(self.ui.get_cols_rows()))
         # l = self.footer.edit_pos
         # self.footer.set_edit_text(self.footer.edit_text[:l])
         # self.footer.insert_text(str(self.zzz))
