@@ -1,26 +1,26 @@
 text:
-  title: "Welcome ssh chat! Use F1 or /help for help"
+  title: |
+
+    Welcome ssh chat! Use F1 or /help for help
 
   help: |
-    (#title#Help#)
+
+    #info#Help#-#
     /help or F1 - this help
     /color or F2 - change you color
+    /list or F3 - show online user
     /me <you message> - write in the third person
     /quit - exit
 
 
 plugins:
-  me: "(#text#[{time}] * {u.username} {text}#)"
+  me: "#250#[{time}] * {u.username} {text}"
 
 format:
-  msg: "[{time}] [(#{u.color}#{u.username}#)]: {text}"
-  prompt: "[(#{u.color}#{u.username}#)]: "
+  msg: "[{time}] [#{u.color}#{u.username}#-#]: {text}"
+  prompt: "[#{u.color}#{u.username}#-#]: "
 
 messages:
-  disconnect: "[{time}] * {u.username} left"
-  connect: "[{time}] * {u.username} connected"
-
-error:
-  nick_used: "You nick is used."
-  nick_long: "You nick is long. Max 10 chars."
+  disconnect: "#250#[{time}] * {u.username} left"
+  connect: "#250#[{time}] * {u.username} connected"
 

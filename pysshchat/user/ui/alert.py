@@ -1,6 +1,6 @@
 import urwid
-import threading
 import time
+import threading
 
 
 def run_thread(func):

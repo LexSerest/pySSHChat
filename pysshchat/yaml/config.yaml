@@ -1,4 +1,7 @@
 host_key: ""
-host: "127.0.0.1"
+host: "0.0.0.0"
 port: 2200
 password: ""
+only_simply_mode: false
+admin:
+  example: "ce:ff:b1:c3:da:09:ab:ff:99:00:9b:b4:3d:5b:91:18"

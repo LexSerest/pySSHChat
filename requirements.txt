@@ -1,6 +1,5 @@
 sty
 pyyaml
-pycrypto
 asyncssh
 urwid
-daemonize
+aiohttp

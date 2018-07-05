@@ -1,5 +1,6 @@
-import pysshchat
+#!/usr/bin/env python3
 
+import pysshchat
 
 if __name__ == "__main__":
     pysshchat.parse_args()

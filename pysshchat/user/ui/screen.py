@@ -1,7 +1,7 @@
 import asyncio
 import urwid
 from urwid.raw_display import Screen
-from contextlib import suppress
+
 
 class AsyncScreen(Screen):
     def __init__(self, transport):
