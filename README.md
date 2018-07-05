@@ -7,7 +7,6 @@ SSH chat server written on Python3
 - Formating text
 - Admin function
 - Simply and Urwid mode
-- Daemon mode
 - Automatic key generation
 
 ## Installation
@@ -107,4 +106,5 @@ pysshchat --load-text <path>
 - More commands
 - More info
 - Refactoring
+- Daemon mode
 - etc.
