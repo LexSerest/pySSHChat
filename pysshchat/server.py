@@ -31,7 +31,7 @@ def genkey(path):
         key = asyncssh.generate_private_key("ssh-rsa")
         key.write_private_key(key_path)
         print("Generate host key")
-        print("Fingerprint MD5:" + fingerprint(key.get_ssh_public_key()))
+        # print("Fingerprint MD5:" + fingerprint(key.get_ssh_public_key()))
     return key_path
 
 
