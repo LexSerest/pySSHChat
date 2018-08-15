@@ -1,5 +1,5 @@
 # pySSHChat
-SSH chat server written on Python3
+SSH chat server written in python3
 
 ![pySSHChat](https://github.com/LexSerest/pySSHChat/blob/master/img/record.gif?raw=true)
 
